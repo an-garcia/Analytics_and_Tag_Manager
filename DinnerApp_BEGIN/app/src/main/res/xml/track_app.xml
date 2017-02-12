@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Google Analytics tracking info -->
+    <string name="ga_trackingId">UA-91846717-1</string>
+    <bool name="ga_autoActivityTracking">true</bool>
+
+    <screenName name="com.example.android.dinnerapp.MainActivity">
+        Main screen</screenName>
+    <screenName name="com.example.android.dinnerapp.OrderDinnerActivity">
+        Order dinner
+    </screenName>
+    <screenName name="com.example.android.dinnerapp.RemoveMealActivity">
+        Eradicate dinner
+    </screenName>
+    <screenName name="com.example.android.dinnerapp.ShowDinnerActivity">
+        Show dinner
+    </screenName>
+    <screenName name="com.example.android.dinnerapp.ShowRecipeActivity">
+        Show recipe
+    </screenName>
+
+</resources>
