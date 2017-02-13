@@ -93,5 +93,11 @@ public class MainActivity extends Activity
 
         return dinnerChoice;
     }
+
+    // Add to MainActivity to handle "Show Daily Special" button
+    public void showDailySpecial(View view) {
+        // Start an activity to show the daily special
+        startActivity(new Intent(this, ShowDailySpecialActivity.class));
+    }
 }
 

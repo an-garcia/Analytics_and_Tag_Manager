@@ -1,6 +1,6 @@
 # Analytics_and_Tag_Manager
-Sample application for learning Google Analytics based on [course](https://www.udacity.com/course/google-analytics-for-android--ud876-2)
-Source at from [Analytics_and_Tag_Manager](https://github.com/udacity/Analytics_and_Tag_Manager)
+Sample android application for learn Google Analytics based on [course](https://www.udacity.com/course/google-analytics-for-android--ud876-2)
+Source at [Analytics_and_Tag_Manager](https://github.com/udacity/Analytics_and_Tag_Manager)
 
 Learn how to add code to send hits to Google Analytics and to use Google Tag Manager.
 
