@@ -27,6 +27,7 @@ import android.widget.PopupMenu;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.tagmanager.ContainerHolder;
+import com.google.android.gms.tagmanager.DataLayer;
 import com.google.android.gms.tagmanager.TagManager;
 
 import java.util.concurrent.TimeUnit;
@@ -108,9 +109,25 @@ public class MainActivity extends Activity {
 
     // Add to MainActivity to handle "Show Daily Special" button
     public void showDailySpecial(View view) {
-        // Start an activity to show the daily special
-        startActivity(new Intent(this, ShowDailySpecialActivity.class));
+        // Show the food preference menu
+        android.widget.PopupMenu popup = new android.widget.PopupMenu(this, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.food_prefs_menu, popup.getMenu());
+
+        // Set the action of the menu
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Save the food pref in the data layer
+                putFoodPrefInDataLayer (item);
+                // Show the daily special
+                startShowDailySpecialActivity();
+                return true;
+            }});
+        // Show the popup menu
+        popup.show();
     }
+
 
     // Load a TagManager container
     public void loadGTMContainer () {
@@ -147,6 +164,38 @@ public class MainActivity extends Activity {
 
             }
         }, 2, TimeUnit.SECONDS);
+    }
+
+
+    public void putFoodPrefInDataLayer (MenuItem item) {
+        TagManager myGTM = ((MyApplication) getApplication()).getTagManager();
+
+        DataLayer dl = myGTM.getDataLayer();
+        switch (item.getItemId()) {
+            case R.id.vegan_pref:
+                dl.push("food_pref", "vegan");
+                break;
+            case R.id.vegetarian_pref:
+                dl.push("food_pref", "vegetarian");
+                break;
+            case R.id.fish_pref:
+                dl.push("food_pref", "fish");
+                break;
+            case R.id.meat_pref:
+                dl.push("food_pref", "meat");
+                break;
+            case R.id.unrestricted_pref:
+                dl.push("food_pref", "unrestricted");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void startShowDailySpecialActivity ()
+    {
+        // Start an activity to show the daily special
+        startActivity(new Intent(this, ShowDailySpecialActivity.class));
     }
 
 }
