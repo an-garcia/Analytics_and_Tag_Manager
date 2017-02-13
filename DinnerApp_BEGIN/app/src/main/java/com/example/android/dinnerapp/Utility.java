@@ -52,6 +52,11 @@ public class Utility {
         return combine(combine(a, b), combine(c, d));
     }
 
+    //
+    public static String getDinnerId (String dinner) {
+        return dinner.substring(0,2);
+    }
+
 
     /**
      * Google Analytics. Tracks a screen hit.
@@ -87,4 +92,5 @@ public class Utility {
                 .setLabel(label)
                 .build());
     }
+
 }

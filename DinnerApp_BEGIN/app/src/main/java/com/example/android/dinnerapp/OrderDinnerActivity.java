@@ -20,6 +20,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.analytics.ecommerce.Product;
+import com.google.android.gms.analytics.ecommerce.ProductAction;
+
 
 public class OrderDinnerActivity extends Activity {
     String selectedDinnerExtrasKey = String.valueOf(R.string.selected_dinner);
@@ -43,6 +48,32 @@ public class OrderDinnerActivity extends Activity {
         String dinner = getIntent().getStringExtra(selectedDinnerExtrasKey);
         tv.setText("This is where you will order the selected dinner: \n\n" +
                 dinner);
+        String dinnerId = Utility.getDinnerId(dinner);
+
+        sendViewProductHit(dinner, dinnerId);
+    }
+
+    public void sendViewProductHit(String dinner, String dinnerId){
+        Product product = new Product()
+                .setName("dinner")
+                .setPrice(5)
+                .setVariant(dinner)
+                .setId(dinnerId)
+                .setQuantity(1);
+
+        ProductAction productAction = new ProductAction(ProductAction.ACTION_DETAIL);
+
+        Tracker tracker = ((MyApplication) getApplication()).getTracker();
+
+        // Send a screen view
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Shopping steps")
+                .setAction("View Order dinner Screen")
+                .setLabel(dinner)
+                .addProduct(product)
+                .setProductAction(productAction)
+                .build());
+
     }
 
 }
