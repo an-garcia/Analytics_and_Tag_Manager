@@ -23,6 +23,9 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by jocelyn on 12/10/14.
  */
@@ -91,6 +94,23 @@ public class Utility {
                 .setAction(action)
                 .setLabel(label)
                 .build());
+    }
+
+
+    /**
+     * Get a unique transaction id using the local time.
+     * @param productId
+     * @return
+     */
+    public static String getUniqueTransactionId (String productId) {
+        return ("T-" + getCurrentTime() + productId );
+    }
+
+    // Gets the current time as a String
+    public static String getCurrentTime () {
+        Date curDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd-M hh:mm:ss");
+        return format.format(curDate);
     }
 
 }

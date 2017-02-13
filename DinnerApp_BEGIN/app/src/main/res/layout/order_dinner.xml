@@ -45,6 +45,15 @@
             android:visibility="invisible"
             android:onClick="startCheckout"
             />
+
+        <Button
+            android:id="@+id/purchase_btn"
+            style="@style/button_solid"
+            android:text="Purchase"
+            android:visibility="invisible"
+            android:onClick="purchaseCart"
+            />
+
         <!--
         <Button style="@style/button_solid"
             android:text="Checkout step 2 \n\n Payment details"

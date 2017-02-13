@@ -134,8 +134,8 @@ public class OrderDinnerActivity extends Activity {
         Button button = (Button) findViewById(R.id.start_checkout_btn);
         button.setVisibility(View.INVISIBLE);
 
-        //button = (Button) findViewById(R.id.checkout_step_2_btn);
-        //button.setVisibility(View.VISIBLE);
+        button = (Button) findViewById(R.id.purchase_btn);
+        button.setVisibility(View.VISIBLE);
     }
 
     // Start checkout
@@ -157,6 +157,47 @@ public class OrderDinnerActivity extends Activity {
         tracker.send(new HitBuilders.EventBuilder()
                 .setCategory("Shopping steps")
                 .setAction("Start checkout")
+                .setLabel(thisDinner)
+                .addProduct(product)
+                .setProductAction(productAction)
+                .build());
+    }
+
+
+    public void purchaseCart (View view) {
+        // Code goes here to add the dinner to the cart
+        // do not implement now!
+        Utility.showMyToast("Purchasing now!", this);
+
+        // Also send an Analytics hit
+        sendPurchaseHit();
+    }
+
+    // Assume that the currently selected dinner is in the cart
+    public void sendPurchaseHit() {
+
+        // In production code, would need to iterate
+        // over all the products in the cart
+        // Here we assume that the currently selected dinner
+        // is the only thing in the cart
+        Product product = new Product()
+                .setName("dinner")
+                .setPrice(5)
+                .setVariant(thisDinner)
+                .setId(thisDinnerId)
+                .setQuantity(1);
+
+        // Get a unique transaction ID
+        String tID = Utility.getUniqueTransactionId(thisDinnerId);
+        ProductAction productAction =
+                new ProductAction(ProductAction.ACTION_PURCHASE)
+                        .setTransactionId(tID);
+
+        Tracker tracker = ((MyApplication) getApplication()).getTracker();
+
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Shopping steps")
+                .setAction("Purchase")
                 .setLabel(thisDinner)
                 .addProduct(product)
                 .setProductAction(productAction)
