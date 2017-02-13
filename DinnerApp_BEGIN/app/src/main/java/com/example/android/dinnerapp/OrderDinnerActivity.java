@@ -19,6 +19,7 @@ package com.example.android.dinnerapp;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -68,12 +69,12 @@ public class OrderDinnerActivity extends Activity {
         sendAddToCartHit();
 
         // Show the start checkout button
-        //Button button = (Button) findViewById(R.id.start_checkout_btn);
-        //button.setVisibility(View.VISIBLE);
+        Button button = (Button) findViewById(R.id.start_checkout_btn);
+        button.setVisibility(View.VISIBLE);
 
         // Hide this add to cart button
-        //button = (Button) findViewById(R.id.add_to_cart_btn);
-        //button.setVisibility(View.INVISIBLE);
+        button = (Button) findViewById(R.id.add_to_cart_btn);
+        button.setVisibility(View.INVISIBLE);
     }
 
     public void sendViewProductHit(String dinner, String dinnerId){
@@ -114,6 +115,48 @@ public class OrderDinnerActivity extends Activity {
         tracker.send(new HitBuilders.EventBuilder()
                 .setCategory("Shopping steps")
                 .setAction("Add dinner to cart")
+                .setLabel(thisDinner)
+                .addProduct(product)
+                .setProductAction(productAction)
+                .build());
+    }
+
+
+    public void startCheckout (View view) {
+        // Code goes here to add the dinner to the cart
+        // do not implement now!
+        Utility.showMyToast("You have started the checkout process", this);
+
+        // Also send an Analytics hit
+        sendStartCheckoutHit();
+
+        // Show and hide buttons appropriately
+        Button button = (Button) findViewById(R.id.start_checkout_btn);
+        button.setVisibility(View.INVISIBLE);
+
+        //button = (Button) findViewById(R.id.checkout_step_2_btn);
+        //button.setVisibility(View.VISIBLE);
+    }
+
+    // Start checkout
+    // We are faking the cart
+    // Assume that the currently selected dinner is in the cart
+    public void sendStartCheckoutHit() {
+        Product product = new Product()
+                .setName("dinner")
+                .setPrice(5)
+                .setVariant(thisDinner)
+                .setId(thisDinnerId)
+                .setQuantity(1);
+
+        ProductAction productAction =
+                new ProductAction(ProductAction.ACTION_CHECKOUT);
+
+        Tracker tracker = ((MyApplication) getApplication()).getTracker();
+
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Shopping steps")
+                .setAction("Start checkout")
                 .setLabel(thisDinner)
                 .addProduct(product)
                 .setProductAction(productAction)

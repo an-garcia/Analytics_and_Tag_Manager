@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView
+    android:id="@+id/scrollview_dinner_suggestion"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white"
     android:clickable="false"
-    android:id="@+id/scrollview_dinner_suggestion"
     android:fillViewport="false">
 
     <LinearLayout
+        android:id="@+id/linear_layout_dinner_suggestion"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -19,10 +20,10 @@
         android:paddingRight="10dp"
         android:paddingTop="1dp"
         android:paddingBottom="5dp"
-        android:id="@+id/linear_layout_dinner_suggestion"
         >
-        <fragment android:name="com.example.android.dinnerapp.UseInfoBoxFragment"
+        <fragment
             android:id="@+id/show_info_box"
+            android:name="com.example.android.dinnerapp.UseInfoBoxFragment"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -30,16 +31,21 @@
 
         <!-- Buttons below will be added and implemented by students -->
 
-        <Button style="@style/button_solid"
-            android:text="Add to cart"
+        <Button
             android:id="@+id/add_to_cart_btn"
+            style="@style/button_solid"
+            android:text="Add to cart"
             android:onClick="addDinnerToCart"
             />
 
-        <!--
-        <Button style="@style/button_solid"
+        <Button
+            android:id="@+id/start_checkout_btn"
+            style="@style/button_solid"
             android:text="Start checkout"
+            android:visibility="invisible"
+            android:onClick="startCheckout"
             />
+        <!--
         <Button style="@style/button_solid"
             android:text="Checkout step 2 \n\n Payment details"
             />
