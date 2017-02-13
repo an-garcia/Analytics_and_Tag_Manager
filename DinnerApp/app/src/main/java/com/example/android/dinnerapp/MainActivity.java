@@ -122,7 +122,7 @@ public class MainActivity extends Activity {
 
         // Load the container
         PendingResult pending =
-                mTagManager.loadContainerPreferFresh("GTM-12345",
+                mTagManager.loadContainerPreferFresh("GTM-5V8G3VX",
                         R.raw.gtm_default);
 
         // Define the callback to store the loaded container
