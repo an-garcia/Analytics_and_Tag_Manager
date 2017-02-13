@@ -134,7 +134,7 @@ public class OrderDinnerActivity extends Activity {
         Button button = (Button) findViewById(R.id.start_checkout_btn);
         button.setVisibility(View.INVISIBLE);
 
-        button = (Button) findViewById(R.id.purchase_btn);
+        button = (Button) findViewById(R.id.payment_btn);
         button.setVisibility(View.VISIBLE);
     }
 
@@ -203,5 +203,44 @@ public class OrderDinnerActivity extends Activity {
                 .setProductAction(productAction)
                 .build());
     }
+
+    public void getPaymentInfo(View view) {
+        // Code here, to add the dinner to the cart. Do not implement now.
+        Utility.showMyToast("Give me your payment info", this);
+
+        // also send the analytics hit
+        sendPaymentInfoHit();
+
+        // Show and hide buttons appropriately
+        Button button = (Button) findViewById(R.id.payment_btn);
+        button.setVisibility(View.INVISIBLE);
+
+        button = (Button) findViewById(R.id.purchase_btn);
+        button.setVisibility(View.VISIBLE);
+
+    }
+
+    public void sendPaymentInfoHit() {
+        Product product = new Product()
+                .setName("dinner")
+                .setPrice(5)
+                .setVariant(thisDinner)
+                .setId(thisDinnerId)
+                .setQuantity(1);
+
+        ProductAction productAction =
+                new ProductAction(ProductAction.ACTION_CHECKOUT_OPTION)
+                        .setCheckoutStep(2);
+
+        Tracker tracker = ((MyApplication) getApplication()).getTracker();
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Shopping steps")
+                .setAction("Get Payment")
+                .setLabel(thisDinner)
+                .addProduct(product)
+                .setProductAction(productAction)
+                .build());
+    }
+
 
 }
