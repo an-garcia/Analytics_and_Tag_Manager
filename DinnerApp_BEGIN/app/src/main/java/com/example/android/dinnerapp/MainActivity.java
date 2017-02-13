@@ -61,6 +61,16 @@ public class MainActivity extends Activity
         popup.show();
     }
 
+
+    /**
+     * Shows the dinner list.
+     * @param view
+     */
+    public void showDinnerList (View view){
+        // Start the activity that shows all the dinners\
+        startActivity(new Intent(this, ShowAllDinnersActivity.class));
+    }
+
     /*
      * Suggest dinner for tonight.
      * This method is invoked by the button click action of the food prefs menu.

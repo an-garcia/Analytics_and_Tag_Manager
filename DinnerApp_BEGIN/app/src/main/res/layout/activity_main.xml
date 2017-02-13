@@ -7,21 +7,28 @@
     android:id="@+id/scrollview_main_screen"
     android:fillViewport="false">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:id="@+id/my_main_layout"
-    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:id="@+id/my_main_layout"
+        >
 
-    <Button style="@style/button_solid"
-        android:layout_marginTop="30dp"
-        android:text="What's for dinner?"
-        android:id="@+id/whats_for_dinner_button"
-        android:onClick="showFoodPrefsMenu"/>
+        <Button style="@style/button_solid"
+            android:layout_marginTop="30dp"
+            android:text="What&apos;s for dinner?"
+            android:id="@+id/whats_for_dinner_button"
+            android:onClick="showFoodPrefsMenu"/>
 
-</LinearLayout>
+        <Button style="@style/button_solid"
+            android:layout_marginTop="30dp"
+            android:text="Show all the dinners"
+            android:id="@+id/show_all_dinners_button"
+            android:onClick="showDinnerList"
+            />
+
+    </LinearLayout>
 </ScrollView>
 
 
