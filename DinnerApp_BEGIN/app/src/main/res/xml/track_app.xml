@@ -6,6 +6,9 @@
     <string name="ga_trackingId">UA-91846717-1</string>
     <bool name="ga_autoActivityTracking">false</bool>
 
+    <!-- Trak uncaught exceptions -->
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+
     <screenName name="com.example.android.dinnerapp.MainActivity">
         Main screen</screenName>
     <screenName name="com.example.android.dinnerapp.OrderDinnerActivity">

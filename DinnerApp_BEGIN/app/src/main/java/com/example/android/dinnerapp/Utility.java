@@ -113,4 +113,22 @@ public class Utility {
         return format.format(curDate);
     }
 
+
+    /**
+     * Tracks caught exceptions.
+     * @param activity
+     * @param description
+     * @param fatal
+     */
+    public static void trackCaughtExceptions(Activity activity, String description, boolean fatal){
+        //Get tracker
+        Tracker tracker = ((MyApplication) activity.getApplication()).getTracker();
+
+        // Send a screen view
+        tracker.send(new HitBuilders.ExceptionBuilder()
+                .setDescription(description)
+                .setFatal(fatal)
+                .build());
+    }
+
 }
