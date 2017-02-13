@@ -54,9 +54,9 @@ public class Utility {
 
 
     /**
-     * Tracks a screen hit.
-     * @param activity
-     * @param screen
+     * Google Analytics. Tracks a screen hit.
+     * @param activity Activity
+     * @param screen screen
      */
     public static void trackHit(Activity activity, String screen) {
         //Get tracker
@@ -67,5 +67,24 @@ public class Utility {
 
         // Send a screen view
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    /**
+     * Google Analytics. Tracks an event.
+     * @param activity Activity
+     * @param category category
+     * @param action action
+     * @param label label
+     */
+    public static void trackEvent(Activity activity, String category, String action, String label){
+        //Get tracker
+        Tracker tracker = ((MyApplication) activity.getApplication()).getTracker();
+
+        // Send a screen view
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory(category)
+                .setAction(action)
+                .setLabel(label)
+                .build());
     }
 }

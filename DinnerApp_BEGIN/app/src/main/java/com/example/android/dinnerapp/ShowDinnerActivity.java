@@ -68,6 +68,8 @@ public class ShowDinnerActivity extends Activity {
         Intent intent = new Intent(this, RemoveMealActivity.class);
         intent.putExtra(selectedDinnerExtrasKey, mDinner);
         startActivity(intent);
+
+        Utility.trackEvent(this, "Dinner actions", "Dislike dinner choice", mDinner);
     }
 
     public void showRecipe (View view) {
