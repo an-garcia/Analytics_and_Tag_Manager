@@ -5,6 +5,8 @@ import android.app.Application;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.tagmanager.ContainerHolder;
+import com.google.android.gms.tagmanager.TagManager;
 
 /**
  * MyApplication
@@ -12,6 +14,9 @@ import com.google.android.gms.analytics.Tracker;
 public class MyApplication extends Application {
 
     public Tracker mTracker;
+    public ContainerHolder mContainerHolder;
+    public TagManager mTagManager;
+
 
     // Get the tracker associated with this app
     public void startTracking() {
@@ -41,6 +46,25 @@ public class MyApplication extends Application {
 
         // Then return the tracker
         return mTracker;
+    }
+
+    // Get the Tag Manager
+    public TagManager getTagManager() {
+        if (mTagManager == null) {
+            // create the TagManager, save it in mTagManager
+            mTagManager = TagManager.getInstance(this);
+        }
+        return mTagManager;
+    }
+
+    // Set the ContainerHolder
+    public void setContainerHolder(ContainerHolder containerHolder) {
+        mContainerHolder = containerHolder;
+    }
+
+    // Get the ContainerHolder
+    public ContainerHolder getContainerHolder() {
+        return mContainerHolder;
     }
 
 }

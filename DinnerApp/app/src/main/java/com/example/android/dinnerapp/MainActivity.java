@@ -24,9 +24,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.tagmanager.ContainerHolder;
+import com.google.android.gms.tagmanager.TagManager;
 
-public class MainActivity extends Activity
-        {
+import java.util.concurrent.TimeUnit;
+
+
+public class MainActivity extends Activity {
+
+    TagManager mTagManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,9 @@ public class MainActivity extends Activity
         // TODO
         // Make sure that Analytics tracking has started
         ((MyApplication)getApplication()).startTracking();
+
+        // Load the TagManager container
+        loadGTMContainer();
     }
 
     /*
@@ -99,5 +111,43 @@ public class MainActivity extends Activity
         // Start an activity to show the daily special
         startActivity(new Intent(this, ShowDailySpecialActivity.class));
     }
+
+    // Load a TagManager container
+    public void loadGTMContainer () {
+        // TODO Get the TagManager
+        mTagManager = ((MyApplication) getApplication()).getTagManager();
+
+        // Enable verbose logging
+        mTagManager.setVerboseLoggingEnabled(true);
+
+        // Load the container
+        PendingResult pending =
+                mTagManager.loadContainerPreferFresh("GTM-12345",
+                        R.raw.gtm_default);
+
+        // Define the callback to store the loaded container
+        pending.setResultCallback(new ResultCallback<ContainerHolder>() {
+            @Override
+            public void onResult(ContainerHolder containerHolder) {
+
+                // If unsuccessful, return
+                if (!containerHolder.getStatus().isSuccess()) {
+                    // Deal with failure
+                    return;
+                }
+
+                // Manually refresh the container holder
+                // Can only do this once every 15 minutes or so
+                containerHolder.refresh();
+
+                // Set the container holder, only want one per running app
+                // We can retrieve it later as needed
+                ((MyApplication) getApplication()).setContainerHolder(
+                        containerHolder);
+
+            }
+        }, 2, TimeUnit.SECONDS);
+    }
+
 }
 
