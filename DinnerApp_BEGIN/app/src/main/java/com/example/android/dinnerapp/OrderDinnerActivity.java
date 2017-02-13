@@ -18,6 +18,7 @@ package com.example.android.dinnerapp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -28,11 +29,13 @@ import com.google.android.gms.analytics.ecommerce.ProductAction;
 
 public class OrderDinnerActivity extends Activity {
     String selectedDinnerExtrasKey = String.valueOf(R.string.selected_dinner);
+    String thisDinner;
+    String thisDinnerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.show_info);
+        setContentView(R.layout.order_dinner);
     }
 
     protected void onStart() {
@@ -49,8 +52,28 @@ public class OrderDinnerActivity extends Activity {
         tv.setText("This is where you will order the selected dinner: \n\n" +
                 dinner);
         String dinnerId = Utility.getDinnerId(dinner);
+        thisDinner = dinner;
+        thisDinnerId = dinnerId;
 
         sendViewProductHit(dinner, dinnerId);
+    }
+
+    public void addDinnerToCart (View view) {
+        // Code goes here to add the dinner to the cart
+        // do not implement now!
+           Utility.showMyToast("I will add the dinner " +
+                thisDinner + "to the cart", this);
+
+        // Also send an Analytics hit
+        sendAddToCartHit();
+
+        // Show the start checkout button
+        //Button button = (Button) findViewById(R.id.start_checkout_btn);
+        //button.setVisibility(View.VISIBLE);
+
+        // Hide this add to cart button
+        //button = (Button) findViewById(R.id.add_to_cart_btn);
+        //button.setVisibility(View.INVISIBLE);
     }
 
     public void sendViewProductHit(String dinner, String dinnerId){
@@ -73,7 +96,28 @@ public class OrderDinnerActivity extends Activity {
                 .addProduct(product)
                 .setProductAction(productAction)
                 .build());
+    }
 
+    public void sendAddToCartHit() {
+        Product product = new Product()
+                .setName("dinner")
+                .setPrice(5)
+                .setVariant(thisDinner)
+                .setId(thisDinnerId)
+                .setQuantity(1);
+
+        ProductAction productAction =
+                new ProductAction(ProductAction.ACTION_ADD);
+
+        Tracker tracker = ((MyApplication) getApplication()).getTracker();
+
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Shopping steps")
+                .setAction("Add dinner to cart")
+                .setLabel(thisDinner)
+                .addProduct(product)
+                .setProductAction(productAction)
+                .build());
     }
 
 }
