@@ -4,7 +4,7 @@
 
     <!-- Google Analytics tracking info -->
     <string name="ga_trackingId">UA-91846717-1</string>
-    <bool name="ga_autoActivityTracking">true</bool>
+    <bool name="ga_autoActivityTracking">false</bool>
 
     <screenName name="com.example.android.dinnerapp.MainActivity">
         Main screen</screenName>

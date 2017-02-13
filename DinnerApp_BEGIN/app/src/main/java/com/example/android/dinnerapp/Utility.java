@@ -16,8 +16,12 @@
 
 package com.example.android.dinnerapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 /**
  * Created by jocelyn on 12/10/14.
@@ -46,5 +50,22 @@ public class Utility {
 
     public static String[] combine(String[] a, String[] b, String[] c, String[] d){
         return combine(combine(a, b), combine(c, d));
+    }
+
+
+    /**
+     * Tracks a screen hit.
+     * @param activity
+     * @param screen
+     */
+    public static void trackHit(Activity activity, String screen) {
+        //Get tracker
+        Tracker tracker = ((MyApplication) activity.getApplication()).getTracker();
+
+        // Set screen name
+        tracker.setScreenName(screen);
+
+        // Send a screen view
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 }

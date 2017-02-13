@@ -29,7 +29,6 @@ public class ShowRecipeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_info);
-
     }
 
     protected void onStart() {
@@ -43,5 +42,7 @@ public class ShowRecipeActivity extends Activity {
         TextView tv = (TextView) findViewById(R.id.textView_info);
         String dinner = getIntent().getStringExtra(selectedDinnerExtrasKey);
         tv.setText(dinner + "\n\n" + getResources().getText(R.string.recipe));
+
+        Utility.trackHit(this, "Show recipe! A lovely screen name.");
     }
 }
