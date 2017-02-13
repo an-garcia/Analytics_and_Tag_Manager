@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.tagmanager.ContainerHolder;
+
 /**
  * ShowDailySpecialActivity
  */
@@ -30,6 +32,8 @@ public class ShowDailySpecialActivity extends Activity {
 
         // Set the text in the text view
         tv_daily_special.setText(mDailySpecial);
+
+        updateDailySpecial();
     }
 
 
@@ -39,4 +43,21 @@ public class ShowDailySpecialActivity extends Activity {
         intent.putExtra(selectedDinnerExtrasKey, mDailySpecial);
         startActivity(intent);
     }
+
+    public void updateDailySpecial () {
+        // Get the container holder
+        ContainerHolder holder =
+                ((MyApplication) getApplication()).getContainerHolder();
+
+        // Get the daily special from the container holder
+        // The keys need to match exactly the keys you set in the Tag Manager interface
+        mDailySpecial = holder.getContainer().getString("daily-special");
+
+        // Get the text view we are using in this activity
+        TextView tv_daily_special = (TextView) findViewById(R.id.textView_info);
+
+        // Set the text in the text view
+        tv_daily_special.setText(mDailySpecial);
+    }
+
 }
