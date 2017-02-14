@@ -196,6 +196,16 @@ public class MainActivity extends Activity {
     {
         // Start an activity to show the daily special
         startActivity(new Intent(this, ShowDailySpecialActivity.class));
+
+        // Get the data layer
+        DataLayer dl = mTagManager.getDataLayer();
+
+        // Push an event into the data layer
+        // which will trigger sending a hit to Analytics
+
+        dl.pushEvent("openScreen",
+                DataLayer.mapOf(
+                        "screen-name", "Show Daily Special"));
     }
 
 }

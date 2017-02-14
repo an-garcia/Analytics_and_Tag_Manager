@@ -25,6 +25,9 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.android.gms.tagmanager.DataLayer;
+import com.google.android.gms.tagmanager.TagManager;
+
 /**
  * Created by jocelyn on 3/12/15.
  */
@@ -69,7 +72,20 @@ public class ShowDinnerActivity extends Activity {
         intent.putExtra(selectedDinnerExtrasKey, mDinner);
         startActivity(intent);
 
-        Utility.trackEvent(this, "Dinner actions", "Dislike dinner choice", mDinner);
+        // Send data to Tag Manager
+        // Get the data layer
+        TagManager tagManager = ((MyApplication) getApplication()).getTagManager();
+        DataLayer dl = tagManager.getDataLayer();
+
+        // Push an event into the data layer
+        // which will trigger sending a hit to Analytics
+
+        dl.pushEvent("openScreen",
+                DataLayer.mapOf(
+                        "screen-name", "Dislike Dinner",
+                        "selected-dinner", mDinner));
+
+        //Utility.trackEvent(this, "Dinner actions", "Dislike dinner choice", mDinner);
     }
 
     public void showRecipe (View view) {
